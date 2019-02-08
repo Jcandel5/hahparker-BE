@@ -47,5 +47,3 @@ router.delete('./api/employeeId' , (req, res) => {
     .catch(err => {
         res.send(err);
     });
-
-
