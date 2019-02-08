@@ -39,11 +39,9 @@ router.delete('./api/employeeId' , (req, res) => {
     db.Employee.remove({_id: req.params.employeeId})
     .then(function(){
         res.json({message: "Employee Deleted"});
-    })
-    })
-    .then(employee =>{
-        res.json(employee);
+    
     })
     .catch(err => {
-        res.send(err);
+        res.json(err);
     });
+})
