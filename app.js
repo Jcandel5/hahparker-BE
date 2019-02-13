@@ -10,10 +10,15 @@ const passportLocalMongoose = require("passport-local-mongoose");
 const User = require("./models/user");
 const addEmployeeRoutes = require("./routes/addEmployeeEJS");
 
+
+
+
 app.use(bodyParser.json());
 app.use(cors());
 app.use(express.urlencoded({ extended: true }));
 app.set("view engine", "ejs");
+app.use(express.static(__dirname + "/public"));
+
 
 app.use(
   require("express-session")({

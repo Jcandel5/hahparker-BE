@@ -1,6 +1,33 @@
 const express = require("express");
 const router = express.Router();
 const db = require("../models");
+const aws = require("aws-sdk");
+const multer = require("multer");
+const multerS3 = require("multer-s3");
+
+const s3 = new aws.S3({
+  apiVersion: "2006-03-01",
+  region: "us-east-1",
+  credentials: {
+    secretAccessKey: process.env.SECRET_KEY,
+    accessKeyId: process.env.ACCESS_KEY_ID
+  }
+});
+
+const upload = multer({
+  storage: multerS3({
+    s3: s3,
+    bucket: process.env.S3_BUCKET,
+    metadata: function(req, file, cb) {
+      cb(null, { fieldName: file.fieldname });
+    },
+    key: function(req, file, cb) {
+      cb(null, Date.now().toString());
+    }
+  })
+});
+
+const singleUpload = upload.single("image");
 
 router.get("/api/employee", (req, res) => {
   db.Employee.find({})
@@ -13,22 +40,20 @@ router.get("/api/employee", (req, res) => {
 });
 
 router.post("/api/employee", (req, res) => {
-  const name = req.body.name;
-  const title = req.body.title;
-  const desc = req.body.desc;
-
-  const newEmployee = {
-    name,
-    title,
-    desc
-  };
-
-  db.Employee.create(newEmployee, (err, newEmployee) => {
+  singleUpload(req, res, function(err, some) {
     if (err) {
-      console.log("error creating employee", err);
-    } else {
-      res.render("success", { employee: newEmployee });
+      return res.status(422).send({
+        errors: [{ title: "Image Upload Error", detail: err.message }]
+      });
     }
+    req.body.employee.image = req.file.location;
+    db.Employee.create(req.body.employee, (err, newEmployee) => {
+      if (err) {
+        console.log("error creating employee", err);
+      } else {
+        res.render("success", { employee: newEmployee });
+      }
+    });
   });
 });
 

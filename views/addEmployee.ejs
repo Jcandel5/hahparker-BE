@@ -2,27 +2,26 @@
     <div class="row">
         <h1 style="text-align: center">Add Employee</h1>
         <div style="width: 30%; margin: 25px auto;">
-            <form action="/api/employee" method="post">
+            <form action="/api/employee" method="POST" enctype="multipart/form-data">
                 <div class="form-group">
-                    <input class="form-control" type="text" name="name" placeholder="Name">
+                    <input class="form-control" type="text" name="employee[name]" placeholder="Name">
                 </div>
                 <div class="form-group">
-                    <input class="form-control" type="text" name="title" placeholder="Title">
+                    <input class="form-control" type="text" name="employee[title]" placeholder="Title">
                 </div>
                 <div class="form-group">
-                  <input
+                  <textarea
                    class='form-control'
-                   type="text"
-                   placeholder="Description"
-                   name="desc"
+                   name="employee[desc]"
                    rows="6"
                    cols="80"
                  >
-                 </input>
+                 </textarea>
                 </div>
-                <div class="form-group">
-                    <input  type="file" name="image" >
+                <div style="text-align: center" class="form-group">
+                  <input type="file"  name="image" accept="image/*" >
                 </div>
+
                 <div class="form-group">
                     <button class="btn btn-lg btn-primary btn-block" type='submit'>Subscribe!</button>
                 </div>
