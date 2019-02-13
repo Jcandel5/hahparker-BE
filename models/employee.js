@@ -4,7 +4,7 @@ const employeeSchema = new mongoose.Schema({
   name: String,
   title: String,
   img: String,
-  description: String,
+  desc: String,
   date: {
     type: Date,
     default: Date.now
