@@ -1,24 +1,26 @@
 <% include ./partials/header %>
     <div class="row">
-        <h1 style="text-align: center">Login</h1>
+        <h1 class="header" style="text-align: center">Login</h1>
         <div style="width: 30%; margin: 25px auto;">
             <form action="/add/employee/admin/login" method="post">
-                <div class="form-group">
-                    <input class="form-control" type="text" name="username" placeholder="Username">
+                <div class="userName">
+                    <input class="usernameContainer" type="text" name="username" placeholder="Username">
                 </div>
-                <div class="form-group">
+                <br>
+                <div class="passWord">
 
-                    <input class="form-control" type="password" name="password" placeholder="Password">
+                    <input class="passwordContainer" type="password" name="password" placeholder="Password">
                 </div>
-                <div class="form-group">
-                    <input class="form-control" type="text" name="adminCode" placeholder="Admin code">
+                <br>
+                <div class="adminCode">
+                    <input class="admincodeContainer" type="text" name="adminCode" placeholder="Admin code">
                 </div>
-
-                <div class="form-group">
-                    <button class="btn btn-lg btn-primary btn-block">Login!</button>
+                <br>
+                <div class="submitContainer">
+                    <button class="submitButton">Login!</button>
                 </div>
             </form>
-            <a  href="/add/employee/register">Register</a>
+            <a class="registerButton" href="/add/employee/register">Register</a>
 
         </div>
     </div>
